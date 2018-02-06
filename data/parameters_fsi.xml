@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<dolfin xmlns:dolfin="http://fenicsproject.org">
+    <parameters name="problem_parameters">
+        <parameter key="description" type="string" value="FSI2" />
+        <parameter key="print_level" type="int" value="3" />
+        <parameter key="rho_s" type="double" value="1.15e+3" />
+        <parameter key="nu_s" type="double" value="0.49" />
+        <parameter key="mu_s" type="double" value="3.355e+6" />
+        <parameter key="p_s" type="double" value="74.8e+4" />
+        <parameter key="beta1" type="double" value="37.4e+4" />
+        <parameter key="beta2" type="double" value="488.1e+4" />
+        <parameter key="rho_f" type="double" value="1.057e+3" />
+        <parameter key="mu_f" type="double" value="3.7e-3" />
+        <parameter key="FEspace" type="string" value="P1P1" />
+        <parameter key="seamless_alpha" type="double" value="1.e-3" />
+        <parameter key="delta_SD" type="double" value="1e-0" />
+        <parameter key="alpha" type="double" value="1e-0" />
+        <parameter key="timestep" type="double" value="0.01" />
+        <parameter key="endtime" type="double" value="0.800" />
+        <parameter key="iteration_tolerance" type="double" value="1e-06" />
+        <parameter key="maximum_iterations" type="int" value="10" />
+        <parameter key="FSnewtonitrmax" type="int" value="100" />
+        <parameter key="FSnewtonsoltol" type="double" value="1e-6" />
+        <parameter key="FSrelaxation_parameter" type="double" value="1.0" />
+        <parameter key="ElasticModel" type="string" value="Linear" />
+        <parameter key="ElasticModelCoeff" type="string" value="nonChemical" />
+        <parameter key="MeshNumber" type="int" value="4" />
+        <parameter key="sample_number" type="int" value="100" />
+    </parameters>
+</dolfin>
