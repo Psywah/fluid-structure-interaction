@@ -13,6 +13,9 @@
 #include "FSI-weakform/Elastic2DP1P1.h"
 #include "FSI-weakform/LinearElastic2DP1P1.h"
 
+#include "FSI-weakform/Fluid3DP1P1.h"
+#include "FSI-weakform/Elastic3DP1P1.h"
+#include "FSI-weakform/LinearElastic3DP1P1.h"
 
 using namespace std;
 using namespace dolfin;
@@ -148,6 +151,9 @@ void SolverBase::init()
             DG.reset(new Fluid2DP1P1::CoefficientSpace_delta_SUPG(mesh));
         }
         else if (d == 3) {
+            VQ.reset(new Elastic3DP1P1::FunctionSpace(mesh));
+            DG1.reset(new Elastic3DP1P1::CoefficientSpace_beta1(mesh));
+            DG.reset(new Fluid3DP1P1::CoefficientSpace_delta_SUPG(mesh));
         }
     }
     else
@@ -187,6 +193,22 @@ void SolverBase::init()
         }
         else if (d == 3) {
 
+            J_f.reset(new Fluid3DP1P1::JacobianForm(VQ,VQ));
+
+            F_f.reset(new Fluid3DP1P1::ResidualForm(VQ));
+
+            if(_parameters["ElasticModel"].value_str() =="Linear")
+            {
+                    info("Use linear elastic model\n");
+                    J_s.reset(new LinearElastic3DP1P1::JacobianForm(VQ,VQ));
+                    F_s.reset(new LinearElastic3DP1P1::ResidualForm(VQ));
+            }
+            else{
+                    info("Use hyper elastic model\n");
+                    J_s.reset(new Elastic3DP1P1::JacobianForm(VQ,VQ));
+                    F_s.reset(new Elastic3DP1P1::ResidualForm(VQ));
+                
+            }
         }
     }
     else
@@ -512,7 +534,7 @@ void SolverBase::save(const Function& velocity,
         *out_velocity << velocity;
         *out_pressure << pressure;
         *out_displacement << displacement;
-        *out_S << S;
+        //*out_S << S;
     }
 
     //while(last_sample + sample_period <= t)
@@ -522,7 +544,7 @@ void SolverBase::save(const Function& velocity,
         *out_velocity << velocity;
         *out_pressure << pressure;
         *out_displacement << displacement;
-        *out_S << S;
+        //*out_S << S;
     }
 }
 
